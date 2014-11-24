@@ -8,6 +8,55 @@
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.css" />
         <title>ToDoL</title>
+        <script type="text/javascript">
+        function addToDo(){
+            var titl=$("#todotitle").val();
+            var description=$("#tododesc").val();
+            if (titl!==""&&description!=="") {
+                var db=window.openDatabase("ToDo",1.0,"ToDo",5242880);
+                db.transaction(function(tx){
+                    tx.executeSql("insert into todotable(title,desc) values(?,?)",[titl,description]);
+
+                    //alert("Inserted Successfully");
+                });
+            }
+            else alert("Enter all the data");
+        }
+        function showToDo(transaction,results){
+            for(var i=0;i<results.rows.length;i++){
+                var row=results.rows.item(i);
+                $("#todolist").append("<li>"+row.title+"</li>");                
+            }
+
+                $("#todolist").listview("refresh");
+        }
+        function readToDo(){
+            var db=window.openDatabase("ToDo",1.0,"ToDo",5242880);
+            db.transaction(function(tx){
+                tx.executeSql("select * from todotable",[],showToDo);
+            });
+        }
+        $(document).ready(function(){
+            if (window.openDatabase) {
+                var db=window.openDatabase("ToDo",1.0,"ToDo",5242880);
+                db.transaction(function(tx){
+                    tx.executeSql("create table if not exists todotable(todoid integer primary key asc,title text,desc text)");
+                    //alert("Table Created");
+                    readToDo();
+                });
+            }
+            else{
+                alert("Your Device donot support offline storage");
+            }
+            $("#savebtn").click(addToDo);
+            $(document).pageShow(readToDo);
+        });
+        /*document.addEventListener('deviceready', function () {
+           
+        
+}, false); */
+
+        </script>
     </head>
     <body>
         <section id="home" data-role="page">
@@ -15,17 +64,37 @@
                 <h1>ToDoL</h1>
             </header>
             <article data-role="content">
-                <header data-role="header">
-                    <h1>ToDo</h1>
-                </header>
-                <input type="button" id="addbtn" value="No Item<br>Tap to add New ToDo" />
-                <header data-role="header">
-                    <h1>Done</h1>
-                </header>
+            <center>
+            
+            <a href="#adderpage" id="adderbtn" data-inline="true" data-role="button" data-transition="pop">Add To-Do</a>
+
+            <input type="button" id="removerbtn" data-inline="true" value="Remove Tasks">
+            </center>
+                <div id="maincontent">
+                   <ul id="todolist" data-role="listview"></ul> 
+                </div>
             </article>
-            <footer data-role="footer">
-                <a href="#" data-icon="plus"></a>
+            <footer data-role="footer" data-position="fixed" data-theme="b">
+                <h1>&copy Reserved by Dinesh Raja</h1>
             </footer>
+        </section>
+        <section id="adderpage" data-role="page" data-dialog="true" data-close-btn="none">
+            <header data-role="header" data-theme="b" >
+                <h1>Add New To-Do</h1>
+            </header>
+            <article data-role="content">
+            <form id="todoform">
+                <label for="todotitle">Title:</label>
+                <input type="text" id="todotitle" /><br/>
+                <label for="tododesc">Description:</label>
+                <textarea id="tododesc"></textarea><br/>
+                <label for="todotime">Schedule Date</label>
+                <input  data-role="date" type="text" id="todotime" /><br/>
+                <!--<input type="button" id="savebtn" value="Save" data-inline="true" /> -->
+                <a href="#" id="savebtn" data-role="button" data-inline="true" data-rel="back">Save</a>          
+                <a href="#" data-role="button" data-inline="true" data-rel="back" id="cancelbtn"> Cancel</a>
+            </form>
+            </article>
         </section>
     </body>
 </html>
