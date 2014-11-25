@@ -10,6 +10,7 @@
         
         <title>ToDoL</title>
         <script type="text/javascript">
+        //Function to Add-todo
         function addToDo(){
             var titl=$("#todotitle").val();
             var description=$("#tododesc").val();
@@ -22,6 +23,7 @@
             }
             else alert("Enter all the data");
         }
+        //Function to Display Todo's in Listview
         function showToDo(transaction,results){
             for(var i=0;i<results.rows.length;i++){
                 var row=results.rows.item(i);
@@ -30,6 +32,7 @@
 
                 $("#todolist").listview("refresh");
         }
+        //Function to read Todo's from DB
         function readToDo(){
             var db=window.openDatabase("ToDo",1.0,"ToDo",5242880);
             //$("#todolist").html("");
@@ -51,7 +54,7 @@
                 alert("Your Device donot support offline storage");
             }
             $("#savebtn").click(addToDo);
-            $("#todotime").datepicker();
+            
         });
         /*document.addEventListener('deviceready', function () {
            
@@ -102,3 +105,7 @@
         </section>
     </body>
 </html>
+<!--Things yet to be done
+    Read and save Schedule date and time in DB
+    Add Local Notification support
+-->
