@@ -4,11 +4,10 @@
     <head>
         <meta charset="utf-8" />
         <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
-        <script type="text/javascript" src="js/jquery.mobile-1.4.5.js"></script>
-        <script type="text/javascript" src="js/jquery-ui.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.4.5.js"></script>       
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.css" />
-        <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+        
         <title>ToDoL</title>
         <script type="text/javascript">
         function addToDo(){
@@ -91,7 +90,9 @@
                 <input type="text" id="todotitle" /><br/>
                 <label for="tododesc">Description:</label>
                 <textarea id="tododesc"></textarea><br/>
-                <label for="todotime">Schedule Date</label>
+                <label for="tododate">Schedule Date</label>
+                <input type="date" id="tododate" />
+                <label for="todotime">Schedule Time</label>
                 <input   type="time" id="todotime" /><br/>
                 <!--<input type="button" id="savebtn" value="Save" data-inline="true" /> -->
                 <a href="#" id="savebtn" data-role="button" data-inline="true" data-rel="back">Save</a>          
