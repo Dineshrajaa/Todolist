@@ -73,12 +73,15 @@
                 <h1>ToDoL</h1>
             </header>
             <article data-role="content">
-            <center>
-            
-            <a href="#adderpage" id="adderbtn" data-inline="true" data-role="button" data-transition="pop">Add To-Do</a>
-
-            <input type="button" id="removerbtn" data-inline="true" value="Remove Tasks">
-            </center>
+           <!-- <center> -->
+            <div data-role="navbar" id="navigation">
+            <ul>
+            <li><a href="#adderpage" id="adderbtn" data-inline="true" data-role="button" data-transition="pop" data-theme="b" data-icon="plus">Add To-Do</a></li>
+            <li><a href="#" id="removerbtn" data-inline="true" data-theme="b" data-icon="minus">Remove Tasks</a></li>           
+            </ul>
+            </div>
+            <!--</center> -->
+            <br /><br /><br />
                 <div id="maincontent">
                    <ul id="todolist" data-role="listview"></ul> 
                 </div>
@@ -100,8 +103,7 @@
                 <label for="tododate">Schedule Date</label>
                 <input type="date" id="tododate" />
                 <label for="todotime">Schedule Time</label>
-                <input   type="time" id="todotime" /><br/>
-                <!--<input type="button" id="savebtn" value="Save" data-inline="true" /> -->
+                <input   type="time" id="todotime" /><br/>                
                 <a href="#" id="savebtn" data-role="button" data-inline="true" data-rel="back">Save</a>          
                 <a href="#" data-role="button" data-inline="true" data-rel="back" id="cancelbtn"> Cancel</a>
             </form>
@@ -110,6 +112,6 @@
     </body>
 </html>
 <!--Things yet to be done
-    Read and save Schedule date and time in DB
-    Add Local Notification support
+    Read and save Schedule date and time in DB(Done)
+    Add Local Notification support(Need SDK to test instantly)
 -->
