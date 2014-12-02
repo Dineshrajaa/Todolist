@@ -11,22 +11,14 @@
         <title>ToDoL</title>
         <script type="text/javascript">
         
-        $(document).ready(function(){
-            if (window.openDatabase) {
-                var db=window.openDatabase("ToDo",1.0,"ToDo",5242880);
-                db.transaction(function(tx){
-                    //tx.executeSql("drop table todotable");
-                    tx.executeSql("create table if not exists todotable(todoid integer primary key asc,title text,desc text,schedule_date text,schedule_time text)");
-                    //alert("Table Created");
-                    readToDo();
-                });
-            }
-            else{
-                alert("Your Device donot support offline storage");
-            }
+        $(document).ready(function(){            
+            fullyLoaded();
             $("#savebtn").click(addToDo);
-            
-        });      
+            $(document).on("pageshow","#home",function(){
+                location.reload();
+            });
+        });    
+
 
         </script>
     </head>
