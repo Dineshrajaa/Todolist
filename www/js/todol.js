@@ -19,7 +19,7 @@ function addToDo(){
         function showToDo(transaction,results){
             for(var i=0;i<results.rows.length;i++){
                 var row=results.rows.item(i);
-                $("#todolist").append("<li>"+row.title+"</li>");                
+                $("#todolist").append("<li id="+row.todoid+"><a href='#'>"+row.title+"</a><a href='#' id='deleter' data-rel='dialog' data-transition='slideup' id='remove'>Remove</a></li>");                
             }
 
                 $("#todolist").listview("refresh");
