@@ -21,6 +21,7 @@
     <preference name="show-splash-screen-spinner" value="true" />
     <preference name="auto-hide-splash-screen"    value="true" />
     <preference name="android-installLocation"    value="auto" />
+    <preference name="SplashScreenDelay" value="15000" />
     <content src="index.html" />
     <access origin="*" />
     
@@ -56,5 +57,6 @@
     <gap:splash src="res/screen/android/xhdpi.png" gap:platform="android" gap:qualifier="xhdpi" />    
     <gap:splash src="res/screen/android/portrait-xxhdpi.png" gap:platform="android" gap:qualifier="port-xxhdpi" />
     <gap:splash src="res/screen/android/landscape-xxhdpi.png" gap:platform="android" gap:qualifier="land-xxhdpi" />
+
     <access origin="*" />
 </widget>
