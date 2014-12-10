@@ -1,19 +1,47 @@
 function addToDo(){
+            //alert("I am clicked");
             var titl=$("#todotitle").val();
             var description=$("#tododesc").val();
             var sch_date=$("#tododate").val();
             var sch_time=$("#todotime").val();
+            var alertTime=new Date(sch_date+" "+sch_time);
+            /*document.addEventListener('deviceready',function(){
+                    alert("Device is Ready");
+                    window.plugin.notification.local.add({
+                        id:      1,
+                        title:   titl,
+                        message: descr,
+                        repeat:  'weekly',
+                        date:    alertTime})
+                },false); */
+           // alert(alertTime);
             if (titl!==""&&description!=="") {
                 var db=window.openDatabase("ToDo",1.0,"ToDo",5242880);
                 db.transaction(function(tx){
 
                     tx.executeSql("insert into todotable(title,desc,schedule_date,schedule_time) values(?,?,?,?)",[titl,description,sch_date,sch_time]);
-                    //alert("Inserted Successfully");
-                });
+                    alert("Inserted Successfully");                   //var toid;
+                                     });              
+                addAlert(titl,description,alertTime);
 
-            }
+
+                            }
             else alert("Enter all the data");
             
+        }
+        //Function to Add Local Notification
+        function addAlert(titl,description,alertTime){
+             document.addEventListener('deviceready',function(){
+                window.plugin.notification.local.add({
+                        id:      Math.floor((Math.random() * 1000) + 1),
+                        title:   titl,
+                        message: description,
+                        repeat:  'weekly',                      
+                        date:    alertTime
+                });
+                alert("Added Notification");
+            
+            },false);
         }
         //Function to Display Todo's in Listview
         function showToDo(transaction,results){
@@ -36,6 +64,7 @@ function addToDo(){
         }
 
         function fullyLoaded(){
+            //alert("I am Fully Loaded");
             if (window.openDatabase) {
                 var db=window.openDatabase("ToDo",1.0,"ToDo",5242880);
                 db.transaction(function(tx){
@@ -50,3 +79,5 @@ function addToDo(){
             }
             
         }
+
+        
