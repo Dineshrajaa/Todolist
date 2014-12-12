@@ -15,23 +15,42 @@ function addToDo(){
                         date:    alertTime})
                 },false); */
            // alert(alertTime);
-            if (titl!==""&&description!=="") {
+            if (titl!==" "&&description!==" ") {
                 var db=window.openDatabase("ToDo",1.0,"ToDo",5242880);
                 db.transaction(function(tx){
-
                     tx.executeSql("insert into todotable(title,desc,schedule_date,schedule_time) values(?,?,?,?)",[titl,description,sch_date,sch_time]);
-                    alert("Inserted Successfully");                   //var toid;
-                                     });              
-                addAlert(titl,description,alertTime);
-
-
+                     
+                   tx.executeSql("select * from todotable",[],function(tx,results){
+            alert("I have got an call");            
+            var maxID=results.rows.length-1;
+            console.log(maxID);
+            var contents=results.rows.item(maxID);
+            var notit=contents.title;
+            alert(notit);
+            var nodesc=contents.desc;
+            var notime=new Date(contents.schedule_date+" "+contents.schedule_time);
+            document.addEventListener('deviceready',function(){
+                window.plugin.notification.local.add({
+                    id:maxID,
+                    title:notit,
+                    message:nodesc,
+                    repeat:weekly,
+                    date:notime
+                });
+            },false);
+                   }); 
+                    console.log("Inserted Successfully");                 
+                                     });
+                //addAlert(titl,description.alertTime);
                             }
-            else alert("Enter all the data");
-            
-        }
+            else alert("Enter all the data");            
+        }   
+
+       
+
         //Function to Add Local Notification
-        function addAlert(titl,description,alertTime){
-             document.addEventListener('deviceready',function(){
+        /*function addAlert(titl,description,alertTime){
+             document.addEventListener('deviceready',function(){                
                 window.plugin.notification.local.add({
                         id:      Math.floor((Math.random() * 1000) + 1),
                         title:   titl,
@@ -42,12 +61,13 @@ function addToDo(){
                 alert("Added Notification");
             
             },false);
-        }
+        } */
         //Function to Display Todo's in Listview
         function showToDo(transaction,results){
+            console.log(results.rows.length);
             for(var i=0;i<results.rows.length;i++){
                 var row=results.rows.item(i);
-                $("#todolist").append("<li id="+row.todoid+"><a href='#'>"+row.title+"</a><a href='#' id='deleter' data-rel='dialog' data-transition='slideup' id='remove'>Remove</a></li>");                
+                $("#todolist").append("<li id="+row.todoid+"><a href='#'>"+row.title+"</a><a href='#' id='deleter' data-rel='dialog' data-transition='slideup'>Remove</a></li>");                
             }
 
                 $("#todolist").listview("refresh");
@@ -56,15 +76,14 @@ function addToDo(){
         //Function to read Todo's from DB
         function readToDo(){
             var db=window.openDatabase("ToDo",1.0,"ToDo",5242880);
-            //$("#todolist").html("");
+            console.log("DB Opened");
             db.transaction(function(tx){
                 tx.executeSql("select * from todotable",[],showToDo);
-
             });
         }
 
         function fullyLoaded(){
-            //alert("I am Fully Loaded");
+            console.log("I am Fully Loaded");
             if (window.openDatabase) {
                 var db=window.openDatabase("ToDo",1.0,"ToDo",5242880);
                 db.transaction(function(tx){

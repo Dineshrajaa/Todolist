@@ -14,9 +14,10 @@
         $(document).ready(function(){            
             fullyLoaded();
             $("#savebtn").click(addToDo);
-            $(document).on("pageshow","#home",function(){
+            $(document).on("pageaftershow","#home",function(){
                 location.reload();
             });
+            
         });    
 
 
