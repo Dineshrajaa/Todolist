@@ -57,21 +57,25 @@ function addToDo(){
             var db=window.openDatabase("ToDo",1.0,"ToDo",5242880);
             db.transaction(function(tx){
                 tx.executeSql("select * from todotable",[],function(tx,results){
-            alert("I have got an call");            
-            var maxID=results.rows.length;
-            alert(maxID);
+            //alert("I have got an call");            
+            var maxID=results.rows.length-1;
+            //alert("No. Of Rows "+ maxID);
             var contents=results.rows.item(maxID);
+            var notid=contents.todoid;
             var notit=contents.title;
-            
+            //alert(notit);            
             var nodesc=contents.desc;
-            var nodate=contents.schedule_date;            
+            //alert(nodesc);
+            var nodate=contents.schedule_date;
+            //alert(nodate);            
             var notime=contents.schedule_time;
+            //alert(notime);
             var notificationTime=new Date(nodate+" "+notime);
-            alert(notificationTime);
+            //alert(notificationTime);
             document.addEventListener('deviceready',function(){
-                alert("About to add Notification "+maxID);
+                alert("About to add Notification "+notid);
                 window.plugin.notification.local.add({
-                    id:maxID,
+                    id:notid,
                     title:notit,
                     message:nodesc,
                     date:notificationTime
@@ -80,7 +84,7 @@ function addToDo(){
                    }); 
             });
              
-                alert("Added Notification");            
+                //alert("Added Notification");            
             
         } 
         //Function to Display Todo's in Listview
@@ -119,5 +123,3 @@ function addToDo(){
             }
             
         }
-
-        
