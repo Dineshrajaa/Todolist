@@ -1,73 +1,107 @@
 <!DOCTYPE html>
-
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
-        <script type="text/javascript" src="js/jquery.mobile-1.4.5.js"></script>       
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.css" />
-        <link rel="stylesheet" type="text/css" href="css/todol.css">
-        <script type="text/javascript" src="js/todol.js"></script>
-        <title>ToDoL</title>
-        <script type="text/javascript">        
-        $(document).ready(function(){            
-            fullyLoaded();
-            $("#savebtn").click(addToDo);
-            $(document).on("pageshow","#home",function(){
-                location.reload();
-            });
-        });    
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
 
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
-        </script>
-    </head>
-    <body>
-        <section id="home" data-role="page">
-            <header data-role="header" data-theme="b">
-                <h1>ToDoL</h1>
-            </header>
-            <article data-role="content">
-           <!-- <center> -->
-            <div data-role="navbar" id="navigation">
-            <ul>
-            <li><a href="#adderpage" id="adderbtn" data-inline="true" data-role="button" data-transition="pop" data-theme="b" data-icon="plus">Add To-Do</a></li>
-            <li><a href="#" id="removerbtn" data-inline="true" data-theme="b" data-icon="minus">Remove Tasks</a></li>           
-            </ul>
-            </div>
-            <!--</center> -->
-            <br /><br /><br />
-                <div id="maincontent">
-                   <ul id="todolist" data-role="listview" data-split-icon="minus"></ul> 
-                </div>
-            </article>
-            <footer data-role="footer" data-position="fixed" data-theme="b">
-                <h1>&copy Reserved by Dinesh Raja</h1>
-            </footer>
-        </section>
-        <section id="adderpage" data-role="page" data-dialog="true" data-close-btn="none">
-            <header data-role="header" data-theme="b" >
-                <h1>Add New To-Do</h1>
-            </header>
-            <article data-role="content">
-            <form id="todoform">
-                <label for="todotitle">Title:</label>
-                <input type="text" id="todotitle" /><br/>
-                <label for="tododesc">Description:</label>
-                <textarea id="tododesc"></textarea><br/>
-                <label for="tododate">Schedule Date</label>
-                <input type="date" id="tododate" />
-                <label for="todotime">Schedule Time</label>
-                <input   type="time" id="todotime" /><br/>                
-                <a href="#" id="savebtn" data-role="button" data-inline="true" data-rel="back">Save</a>          
-                <a href="#" data-role="button" data-inline="true" data-rel="back" id="cancelbtn"> Cancel</a>
-            </form>
-            </article>
-        </section>
-        <script type="text/javascript" src="cordova.js"></script>
-    </body>
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <!-- your app's js -->
+    <script src="js/ionictodol.js"></script>
+    <style type="text/css">
+    .striked{
+      text-decoration: line-through;
+    }
+    </style>
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    
+  </head>
+  <body ng-app="ionictodol" ng-controller="todolctrl">
+  <ion-side-menus> 
+    <!--Ionic Side Menu Container-->   
+    <ion-side-menu-content>      
+      <ion-header-bar class="bar-dark">
+        <button menu-toggle="left" class="button button-icon">
+          <i class="icon ion-navicon"></i>
+        </button>
+        <h1 class="title">{{activeProject.title}}</h1>
+        <button class="button button-icon" ng-click="newTask()">
+        <i class="icon ion-compose"></i>
+      </button>
+      </ion-header-bar>
+      <ion-content scroll="true">
+        <ion-list class="item-text-wrap">
+          <ion-item ng-repeat="task in activeProject.tasks" class="item-checkbox" ng-class="{striked: task.done===true}" >
+            <!-- <label class="checkbox"> -->
+            <input type="checkbox" ng-model="task.done" ng-click="updateStatus(task,$index)">
+            <!-- </label> -->
+           <!--  <ion-option-button class="button-positive">Share</ion-option-button> -->
+            {{task.title}}
+            <ion-delete-button class="ion-minus-circled"></ion-delete-button>      
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-side-menu-content>
+    <ion-side-menu side="left">
+      <ion-header-bar class="bar-dark">
+        <h1 class="title">Projects</h1>
+        <button class="button button-icon ion-plus" ng-click="newProject()"></button>
+      </ion-header-bar>
+      <ion-content scroll="false">
+        <ion-list>
+          <ion-item ng-repeat="project in projects" ng-click="selectProject(project,$index)" ng-class="{active: activeProject==project}">
+            {{project.title}}
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-side-menu>
+    <script id="new-task.html" type="text/ng-template">
+
+  <div class="modal">
+
+    <!--Modal header bar -->
+    <ion-header-bar class="bar-secondary">
+      <h1 class="title">New Task</h1>
+      <button class="button button-clear button-positive" ng-click="closeNewTask()">Cancel</button>
+    </ion-header-bar>
+
+    <!-- Modal content area -->
+    <ion-content>
+
+      <form ng-submit="createTask(task)">
+        <div class="list">
+          <label class="item item-input">
+            <input type="text" placeholder="What do you need to do?" ng-model="task.title">
+          </label>
+        </div>
+        <div class="padding">
+          <button type="submit" class="button button-block button-positive">Create Task</button>
+        </div>
+      </form>
+
+    </ion-content>
+
+  </div>
+
+</script>
+
+  </ion-side-menus>
+    <!-- <ion-pane>
+      <ion-header-bar class="bar-stable">
+        <h1 class="title">Ionic Blank Starter</h1>
+      </ion-header-bar>
+      <ion-content>
+      </ion-content>
+    </ion-pane> -->
+  </body>
 </html>
-<!--Things yet to be done
-    Read and save Schedule date and time in DB(Done)
-    Add Local Notification support(Need SDK to test instantly)
--->

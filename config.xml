@@ -1,87 +1,20 @@
-<?xml version='1.0' encoding='utf-8'?>
-<widget id="com.cgvak.todol" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>ToDoL</name>
-    <description>
-        A simple ToDoList app built using Cordova.
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<widget id="com.dinesh.ionictodol" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>IonicToDoL</name>
+  <description>
+        An ToDo List app based on Ionic Framework and Cordova project.
     </description>
-    <author email="dineshrajaa.93@gmail.com" href="http://cordova.io">
-        Dinesh Raja
+  <author email="dineshkumar.r@cgvakindia.com" href="http://ionicframework.com/">
+      Dinesh Raja
     </author>
-    <preference name="phonegap-version"   value="3.6.3" />
-    <preference name="DisallowOverscroll" value="true"/>
-    <preference name="orientation"        value="default" />
-    <preference name="target-device"      value="universal" />
-    <preference name="fullscreen"         value="false" />
-    <preference name="webviewbounce"      value="false" />
-    <preference name="prerendered-icon"   value="false" />
-    <preference name="stay-in-webview"    value="false" />
-    <preference name="ios-statusbarstyle" value="black-opaque" />
-    <preference name="detect-data-types"  value="true" /> 
-    <preference name="exit-on-suspend"    value="false" />
-    <preference name="show-splash-screen-spinner" value="true" />
-    <preference name="auto-hide-splash-screen"    value="true" />
-    <preference name="android-installLocation"    value="auto" />
-    <preference name="SplashScreenDelay" value="15000" />
-    <content src="index.html" />
-    <access origin="*" />
-    
-    <icon src="logo.png" /> 
-    <!--ICON FOR ios-->
-    <icon src="res/icon/ios/icon-60@3x.png" gap:platform="ios" width="180" height="180" />
-    <icon src="res/icon/ios/icon-60.png" gap:platform="ios" width="60" height="60" />
-    <icon src="res/icon/ios/icon-60@2x.png" gap:platform="ios" width="120" height="120" />
-    <icon src="res/icon/ios/icon-76.png" gap:platform="ios" width="76" height="76" />
-    <icon src="res/icon/ios/icon-76@2x.png" gap:platform="ios" width="152" height="152" />
-    <!-- Spotlight Icon -->
-
-    <icon src="res/icon/ios/icon-40.png" gap:platform="ios" width="40" height="40" />
-    <icon src="res/icon/ios/icon-40@2x.png" gap:platform="ios" width="80" height="80" />
-    <!-- iPhone / iPod Touch -->
-
-    <icon src="res/icon/ios/icon-57.png" gap:platform="ios" width="57" height="57" />
-    <icon src="res/icon/ios/icon-57@2x.png" gap:platform="ios" width="114" height="114" />
-    <!-- iPad -->
-
-    <icon src="res/icon/ios/icon-72.png" gap:platform="ios" width="72" height="72" />
-    <icon src="res/icon/ios/icon-72@2x.png" gap:platform="ios" width="144" height="144" />
-    <!-- iPhone Spotlight and Settings Icon -->
-<icon src="icon-small.png" gap:platform="ios" width="29" height="29" />
-<icon src="icon-small@2x.png" gap:platform="ios" width="58" height="58" />
-
-<!-- iPad Spotlight and Settings Icon -->
-<icon src="icon-50.png" gap:platform="ios" width="50" height="50" />
-<icon src="icon-50@2x.png" gap:platform="ios" width="100" height="100" />
-
-
-
-
-    <!--ICONS FOR Android-->
-    <icon src="res/icon/android/ldpi.png" gap:platform="android" gap:qualifier="ldpi" />
-    <icon src="res/icon/android/mdpi.png" gap:platform="android" gap:qualifier="mdpi" />
-    <icon src="res/icon/android/hdpi.png" gap:platform="android" gap:qualifier="hdpi" />
-    <icon src="res/icon/android/xhdpi.png" gap:platform="android" gap:qualifier="xhdpi" />
-    <icon src="res/icon/android/xxhdpi.png" gap:platform="android" gap:qualifier="xxhdpi" />
-    <icon src="res/icon/android/fr-xxhdpi.png" gap:platform="android" gap:qualifier="fr-xxhdpi" />
-  	<!--SPLASH SCREEN FOR ALL-->
-    <gap:splash src="splash.png" />
-    <!--SPLASH SCREEN FOR ios-->
-    <!-- iPhone and iPod touch -->
-    <gap:splash src="res/screen/ios/Default.png" gap:platform="ios" width="320" height="480" />
-    <gap:splash src="res/screen/ios/Default@2x.png" gap:platform="ios" width="640" height="960" />
-    <!-- iPhone 5 / iPod Touch (5th Generation) -->
-    <gap:splash src="res/screen/ios/Default-568h@2x.png" gap:platform="ios" width="640" height="1136" />
-    <!-- iPhone 6 -->
-    <gap:splash src="res/screen/ios/Default-667h@2x.png" gap:platform="ios" width="750" height="1334" />
-    <gap:splash src="res/screen/ios/Default-Portrait-736h@3x.png" gap:platform="ios" width="1242" height="2208" />
-    <gap:splash src="res/screen/ios/Default-Landscape-736h@3x.png" gap:platform="ios" width="2208" height="1242" />
-
-    <!--SPLASH SCREEN FOR Android-->
-    <gap:splash src="res/screen/android/ldpi.png" gap:platform="android" gap:qualifier="ldpi" />
-    <gap:splash src="res/screen/android/mdpi.png" gap:platform="android" gap:qualifier="mdpi" />
-    <gap:splash src="res/screen/android/hdpi.png" gap:platform="android" gap:qualifier="hdpi" />
-    <gap:splash src="res/screen/android/xhdpi.png" gap:platform="android" gap:qualifier="xhdpi" />    
-    <gap:splash src="res/screen/android/portrait-xxhdpi.png" gap:platform="android" gap:qualifier="port-xxhdpi" />
-    <gap:splash src="res/screen/android/landscape-xxhdpi.png" gap:platform="android" gap:qualifier="land-xxhdpi" />
-
-    <access origin="*" />
+  <content src="index.html"/>
+  <access origin="*"/>
+  <preference name="webviewbounce" value="false"/>
+  <preference name="UIWebViewBounce" value="false"/>
+  <preference name="DisallowOverscroll" value="true"/>
+  <preference name="android-minSdkVersion" value="16"/>
+  <preference name="BackupWebStorage" value="none"/>
+  <feature name="StatusBar">
+    <param name="ios-package" value="CDVStatusBar" onload="true"/>
+  </feature>
 </widget>
